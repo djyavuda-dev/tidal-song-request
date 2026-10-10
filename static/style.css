@@ -1,0 +1,157 @@
+:root {
+  --bg: #15181B;
+  --surface: #1E2226;
+  --brass: #C9A227;
+  --teal: #1F5C56;
+  --ink: #EDE9E0;
+  --muted: #8B9096;
+  --danger: #B23A48;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'IBM Plex Sans', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 32px 16px 64px;
+}
+
+.slip {
+  width: 100%;
+  max-width: 440px;
+}
+
+.slip__logo {
+  display: block;
+  width: 100%;
+  max-width: 260px;
+  margin: 0 auto 24px;
+  border-radius: 12px;
+}
+
+.slip__head h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 2.4rem;
+  line-height: 1.05;
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
+}
+
+.slip__sub {
+  margin: 0 0 28px;
+  color: var(--muted);
+  font-size: 0.95rem;
+  max-width: 34ch;
+}
+
+.search {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.search input {
+  width: 100%;
+  background: var(--surface);
+  border: 1.5px solid #33383D;
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 1rem;
+  color: var(--ink);
+  font-family: inherit;
+}
+
+#name {
+  font-size: 0.9rem;
+  padding: 11px 16px;
+  border-color: #2A2E32;
+}
+
+.search input:focus {
+  outline: none;
+  border-color: var(--brass);
+}
+
+.search input::placeholder { color: var(--muted); }
+
+.results {
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 4px;
+  border-bottom: 1px solid #23272B;
+}
+
+.track__art {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--surface);
+  border: 2px solid #33383D;
+}
+
+.track__meta { flex: 1; min-width: 0; }
+
+.track__name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track__artist {
+  color: var(--muted);
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track__button {
+  background: var(--brass);
+  color: #15181B;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 16px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  font-family: inherit;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.track__button:active { transform: scale(0.97); }
+
+.track__button:disabled {
+  background: var(--teal);
+  color: var(--ink);
+  opacity: 0.8;
+}
+
+.status {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: var(--muted);
+  min-height: 1.2em;
+}
+
+.status.error { color: var(--danger); }
+.status.ok { color: var(--brass); }
