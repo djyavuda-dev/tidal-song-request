@@ -156,7 +156,12 @@ def callback():
 def parse_search(payload):
     """Turn Tidal's JSON:API search response into a flat list of tracks."""
     included = {(i.get("type"), i.get("id")): i for i in payload.get("included", [])}
-    rels = (payload.get("data") or {}).get("relationships", {})
+    # Since mid-2026 Tidal returns "data" as a list of search-result resources;
+    # older responses had a single object. Handle both.
+    data = payload.get("data") or {}
+    if isinstance(data, list):
+        data = data[0] if data else {}
+    rels = data.get("relationships", {})
     out = []
     for ref in (rels.get("tracks", {}).get("data") or [])[:8]:
         track = included.get((ref["type"], ref["id"]))
@@ -208,8 +213,9 @@ def search():
         return jsonify([])
     try:
         resp = requests.get(
-            f"{API}/searchResults/{urllib.parse.quote(query, safe='')}",
+            f"{API}/searchResults",
             params={
+                "filter[query]": query,
                 "countryCode": COUNTRY_CODE,
                 "include": "tracks,tracks.artists,tracks.albums,tracks.albums.coverArt",
             },
